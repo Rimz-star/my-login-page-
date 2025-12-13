@@ -25,7 +25,7 @@ body {
     animation: scan 2s linear infinite;
     pointer-events: none;
 }
-@keyframes scan { 0%{top:0}100%{top:100%} }
+@keyframes scan { 0% { top: 0 } 100% { top: 100% } }
 
 /* NOISE */
 .noise {
@@ -64,9 +64,10 @@ body {
 /* TITLE */
 h2 {
     text-align: center;
-    color: #00ff88;
+    color: #00ff88; /* hijau neon */
     margin-bottom: 30px;
     letter-spacing: 3px;
+    position: relative;
 }
 
 /* GLITCH */
@@ -75,65 +76,100 @@ h2 {
     content: attr(data-text);
     position: absolute;
     left: 0;
+    top: 0;
 }
-.glitch::before { text-shadow: -2px 0 #f0f; }
-.glitch::after { text-shadow: 2px 0 #0ff; }
+
+.glitch::before {
+    color: #00ffff; /* biru neon */
+    text-shadow: -2px 0 #00ffff;
+}
+
+.glitch::after {
+    color: #00ff88; /* hijau neon */
+    text-shadow: 2px 0 #00ff88;
+}
 
 /* INPUT */
 .input-group {
     position: relative;
     margin-bottom: 30px;
 }
+
 .input-group input {
     width: 100%;
     padding: 12px 38px 12px 10px;
     background: transparent;
     border: 1px solid #00ff88;
-    color: #00ff88;
+    color: #00ff88; /* hijau neon */
     border-radius: 6px;
 }
+
 .input-group label {
     position: absolute;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    color: #00ff88;
+    color: #00ff88; /* hijau neon */
     transition: .3s;
 }
+
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
     top: -8px;
     font-size: 12px;
 }
 
-/* PASSWORD */
+/* PASSWORD TOGGLE ICON */
 .password i {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #00ff88;
+    color: #00ffff; /* biru neon */
 }
 
 /* BUTTON */
 button {
     width: 100%;
     padding: 12px;
-    background: #00ff88;
+    background: #00ff88; /* hijau neon */
+    color: #000;
     border: none;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s;
+}
+button:hover {
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff88;
 }
 
 /* ERROR */
-.error { color: #ff3333; font-size: 12px }
-.input-error input { border-color: #ff3333 }
+.error {
+    color: #00ffff; /* biru neon */
+    font-size: 12px;
+}
+.input-error input {
+    border-color: #00ffff; /* biru neon */
+}
 
-/* MOBILE */
+/* SWITCH TEXT */
+.switch {
+    color: #00ff88; /* hijau neon */
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+.switch span {
+    color: #00ffff; /* biru neon */
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
-    body { padding: 20px; align-items: flex-start }
-    .container { width: 100%; margin-top: 40px; animation: none }
-    .scanline { display: none }
+    body { padding: 20px; align-items: flex-start; }
+    .container { width: 100%; margin-top: 40px; animation: none; }
+    .scanline { display: none; }
 }
