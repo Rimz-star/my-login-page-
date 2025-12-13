@@ -1,36 +1,25 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="scanline"></div>
-<div class="noise"></div>
-
 <div class="container">
-    <h2 class="glitch" data-text="ACCESS GRANTED">ACCESS GRANTED</h2>
-    <p style="color:#00ff88;text-align:center">Welcome, <span id="user"></span></p>
+    <h2>ACCESS GRANTED</h2>
+    <p id="user"></p>
     <button onclick="logout()">LOGOUT</button>
 </div>
 
 <script>
-const MAX_SESSION = 10 * 60 * 1000;
-const user = localStorage.getItem("loggedInUser");
-const time = localStorage.getItem("loginTime");
-
-if(!user || Date.now()-time > MAX_SESSION){
-    localStorage.clear();
-    location.href="index.html";
-}
-
-document.getElementById("user").textContent = user;
+const u = localStorage.getItem("sessionUser");
+if(!u) location.href="index.html";
+document.getElementById("user").innerText = u;
 
 function logout(){
-    localStorage.clear();
+    localStorage.removeItem("sessionUser");
     location.href="index.html";
 }
 </script>
