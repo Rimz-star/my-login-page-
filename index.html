@@ -2,39 +2,74 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Cyber Login</title>
+    <title>Cyber Auth</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Font Awesome -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div class="login-container">
-    <h2>CYBER LOGIN</h2>
+<div class="container">
 
-    <form id="loginForm">
-        <div class="input-group">
-            <input type="text" id="username">
-            <label>Username</label>
-            <small class="error"></small>
-        </div>
+    <!-- LOGIN -->
+    <div class="box active" id="loginBox">
+        <h2>CYBER LOGIN</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="loginUser">
+                <label>Username</label>
+                <small class="error"></small>
+            </div>
 
-        <div class="input-group password-group">
-            <input type="password" id="password">
-            <label>Password</label>
-            <i class="fa-solid fa-eye" id="togglePassword"></i>
-            <small class="error"></small>
-        </div>
+            <div class="input-group password">
+                <input type="password" id="loginPass">
+                <label>Password</label>
+                <i class="fa-solid fa-eye toggle"></i>
+                <small class="error"></small>
+            </div>
 
-        <button type="submit">ACCESS</button>
-    </form>
+            <button>ACCESS</button>
+            <p class="switch">Belum punya akun?
+                <span onclick="showRegister()">Create Akun</span>
+            </p>
+        </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="box" id="registerBox">
+        <h2>CREATE AKUN</h2>
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="regUser">
+                <label>Username</label>
+                <small class="error"></small>
+            </div>
+
+            <div class="input-group password">
+                <input type="password" id="regPass">
+                <label>Password</label>
+                <i class="fa-solid fa-eye toggle"></i>
+                <small class="error"></small>
+            </div>
+
+            <div class="input-group password">
+                <input type="password" id="regConfirm">
+                <label>Confirm Password</label>
+                <i class="fa-solid fa-eye toggle"></i>
+                <small class="error"></small>
+            </div>
+
+            <button>REGISTER</button>
+            <p class="switch">Sudah punya akun?
+                <span onclick="showLogin()">Login</span>
+            </p>
+        </form>
+    </div>
+
 </div>
 
-<!-- SOUND -->
-<audio id="errorSound" src="sounds/error please try aga.mp3"></audio>
-<audio id="successSound" src="sounds2/Done Welcome back.mp3"></audio>
+<audio id="errorSound" src="sounds/error.mp3"></audio>
+<audio id="successSound" src="sounds/success.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
