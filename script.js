@@ -6,6 +6,13 @@ if (localStorage.getItem("sessionUser")) {
 /* ELEMENTS */
 const loginBox = document.getElementById("loginBox");
 const registerBox = document.getElementById("registerBox");
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const loginUser = document.getElementById("loginUser");
+const loginPass = document.getElementById("loginPass");
+const regUser = document.getElementById("regUser");
+const regPass = document.getElementById("regPass");
+const regConfirm = document.getElementById("regConfirm");
 
 /* SWITCH */
 function showRegister(){ loginBox.classList.remove("active"); registerBox.classList.add("active"); }
@@ -35,12 +42,19 @@ loginForm.onsubmit = async e => {
 
     const users = JSON.parse(localStorage.getItem("users") || "[]");
     const user = users.find(x=>x.username===u);
-    if(!user) return alert("Login gagal");
+    if(!user) {
+        document.getElementById("errorSound").play();
+        return alert("Login gagal");
+    }
 
     const h = await hashPassword(p, user.salt);
-    if(h !== user.password) return alert("Login gagal");
+    if(h !== user.password) {
+        document.getElementById("errorSound").play();
+        return alert("Login gagal");
+    }
 
     localStorage.setItem("sessionUser", u);
+    document.getElementById("successSound").play();
     location.href = "dashboard.html";
 };
 
@@ -51,10 +65,16 @@ registerForm.onsubmit = async e => {
     const p = regPass.value.trim();
     const c = regConfirm.value.trim();
 
-    if(p.length < 6 || p !== c) return alert("Password error");
+    if(p.length < 6 || p !== c) {
+        document.getElementById("errorSound").play();
+        return alert("Password error");
+    }
 
     let users = JSON.parse(localStorage.getItem("users") || "[]");
-    if(users.find(x=>x.username===u)) return alert("Username sudah ada");
+    if(users.find(x=>x.username===u)) {
+        document.getElementById("errorSound").play();
+        return alert("Username sudah ada");
+    }
 
     const salt = crypto.randomUUID();
     const hash = await hashPassword(p, salt);
@@ -62,6 +82,7 @@ registerForm.onsubmit = async e => {
     users.push({ username:u, password:hash, salt });
     localStorage.setItem("users", JSON.stringify(users));
 
+    document.getElementById("successSound").play();
     alert("Register sukses");
     showLogin();
 };
