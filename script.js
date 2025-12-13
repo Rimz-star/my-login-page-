@@ -1,6 +1,21 @@
+// ===== DOM ELEMENTS =====
+const loginBox = document.getElementById("loginBox");
+const registerBox = document.getElementById("registerBox");
+
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+
+const loginUser = document.getElementById("loginUser");
+const loginPass = document.getElementById("loginPass");
+
+const regUser = document.getElementById("regUser");
+const regPass = document.getElementById("regPass");
+const regConfirm = document.getElementById("regConfirm");
+
 const errorSound = document.getElementById("errorSound");
 const successSound = document.getElementById("successSound");
 
+// ===== SWITCH FORM =====
 function showRegister() {
     loginBox.classList.remove("active");
     registerBox.classList.add("active");
@@ -11,55 +26,41 @@ function showLogin() {
     loginBox.classList.add("active");
 }
 
-// Toggle Password
+// ===== TOGGLE PASSWORD =====
 document.querySelectorAll(".toggle").forEach(icon => {
-    icon.onclick = () => {
+    icon.addEventListener("click", () => {
         const input = icon.previousElementSibling;
         input.type = input.type === "password" ? "text" : "password";
         icon.classList.toggle("fa-eye");
         icon.classList.toggle("fa-eye-slash");
-    };
+    });
 });
 
-// LOGIN
-loginForm.onsubmit = e => {
+// ===== LOGIN =====
+loginForm.addEventListener("submit", e => {
     e.preventDefault();
-    clear(loginForm);
+    clearErrors(loginForm);
 
     let valid = true;
-    if (!loginUser.value) error(loginUser, "Username wajib diisi"), valid = false;
-    if (!loginPass.value) error(loginPass, "Password wajib diisi"), valid = false;
 
-    if (!valid) errorSound.play();
-    else successSound.play(), alert("LOGIN BERHASIL 🚀");
-};
-
-// REGISTER
-registerForm.onsubmit = e => {
-    e.preventDefault();
-    clear(registerForm);
-
-    let valid = true;
-    if (!regUser.value) error(regUser, "Username wajib diisi"), valid = false;
-    if (regPass.value.length < 6) error(regPass, "Min 6 karakter"), valid = false;
-    if (regPass.value !== regConfirm.value)
-        error(regConfirm, "Password tidak sama"), valid = false;
-
-    if (!valid) errorSound.play();
-    else {
-        successSound.play();
-        alert("AKUN BERHASIL DIBUAT 🎉");
-        showLogin();
+    if (!loginUser.value.trim()) {
+        setError(loginUser, "Username wajib diisi");
+        valid = false;
     }
-};
 
-function error(input, msg) {
-    const group = input.parentElement;
-    group.classList.add("input-error");
-    group.querySelector(".error").textContent = msg;
-}
+    if (!loginPass.value.trim()) {
+        setError(loginPass, "Password wajib diisi");
+        valid = false;
+    }
 
-function clear(form) {
-    form.querySelectorAll(".input-group").forEach(g => g.classList.remove("input-error"));
-    form.querySelectorAll(".error").forEach(e => e.textContent = "");
-}
+    if (!valid) {
+        playError();
+    } else {
+        playSuccess();
+        alert("LOGIN BERHASIL 🚀");
+    }
+});
+
+// ===== REGISTER =====
+registerForm.addEventListener("submit", e => {
+    e.preventDefau
