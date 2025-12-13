@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cyber Auth</title>
-
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -17,18 +16,18 @@
 
     <!-- LOGIN -->
     <div class="box active" id="loginBox">
-        <h2 class="glitch" data-text=>PRIVATE LOGIN</h2>
+        <h2 class="glitch" data-text="PRIVATE LOGIN">PRIVATE LOGIN</h2>
 
         <form id="loginForm" autocomplete="off">
 
             <div class="input-group">
-                <input type="text" id="loginUser" placeholder=" ">
+                <input type="text" id="loginUser" placeholder=" " required>
                 <label>Username</label>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="loginPass" placeholder=" ">
+                <input type="password" id="loginPass" placeholder=" " required>
                 <label>Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
@@ -37,8 +36,7 @@
             <button type="submit">ACCESS</button>
 
             <p class="switch">
-                Belum punya akun?
-                <span onclick="showRegister()">Create Akun</span>
+                Belum punya akun? <span onclick="showRegister()">Create Akun</span>
             </p>
         </form>
     </div>
@@ -50,20 +48,20 @@
         <form id="registerForm" autocomplete="off">
 
             <div class="input-group">
-                <input type="text" id="regUser" placeholder=" ">
+                <input type="text" id="regUser" placeholder=" " required>
                 <label>Username</label>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="regPass" placeholder=" ">
+                <input type="password" id="regPass" placeholder=" " required>
                 <label>Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="regConfirm" placeholder=" ">
+                <input type="password" id="regConfirm" placeholder=" " required>
                 <label>Confirm Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
@@ -72,8 +70,7 @@
             <button type="submit">REGISTER</button>
 
             <p class="switch">
-                Sudah punya akun?
-                <span onclick="showLogin()">Login</span>
+                Sudah punya akun? <span onclick="showLogin()">Login</span>
             </p>
         </form>
     </div>
