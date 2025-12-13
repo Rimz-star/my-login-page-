@@ -1,83 +1,104 @@
-const loginBox=document.getElementById("loginBox");
-const registerBox=document.getElementById("registerBox");
+// AUTO REDIRECT JIKA SUDAH LOGIN
+if (localStorage.getItem("loggedInUser")) {
+    window.location.href = "dashboard.html";
+}
 
-const loginForm=document.getElementById("loginForm");
-const registerForm=document.getElementById("registerForm");
+const loginBox = document.getElementById("loginBox");
+const registerBox = document.getElementById("registerBox");
 
-const loginUser=document.getElementById("loginUser");
-const loginPass=document.getElementById("loginPass");
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
 
-const regUser=document.getElementById("regUser");
-const regPass=document.getElementById("regPass");
-const regConfirm=document.getElementById("regConfirm");
+const loginUser = document.getElementById("loginUser");
+const loginPass = document.getElementById("loginPass");
 
-const errorSound=document.getElementById("errorSound");
-const successSound=document.getElementById("successSound");
+const regUser = document.getElementById("regUser");
+const regPass = document.getElementById("regPass");
+const regConfirm = document.getElementById("regConfirm");
 
-// SWITCH
+const errorSound = document.getElementById("errorSound");
+const successSound = document.getElementById("successSound");
+
 function showRegister(){ loginBox.classList.remove("active"); registerBox.classList.add("active"); }
 function showLogin(){ registerBox.classList.remove("active"); loginBox.classList.add("active"); }
 
 // PASSWORD TOGGLE
 document.querySelectorAll(".toggle").forEach(icon=>{
-    icon.addEventListener("click", ()=>{
-        const input=icon.previousElementSibling;
-        input.type=input.type==="password"?"text":"password";
-        icon.classList.toggle("fa-eye"); icon.classList.toggle("fa-eye-slash");
-    });
+    icon.onclick = ()=>{
+        const input = icon.previousElementSibling;
+        input.type = input.type === "password" ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+    }
 });
 
-// HASH FUNCTION
-async function hashText(text){
-    const msgUint8=new TextEncoder().encode(text);
-    const hashBuffer=await crypto.subtle.digest('SHA-256', msgUint8);
-    const hashArray=Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b=>b.toString(16).padStart(2,'0')).join('');
+// HASH + SALT
+async function hashPassword(password, salt) {
+    const data = new TextEncoder().encode(password + salt);
+    const hash = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+// RATE LIMIT
+const MAX_ATTEMPTS = 3;
+const LOCK_TIME = 60000;
+
+function checkLock(){
+    const d = JSON.parse(localStorage.getItem("loginAttempts") || "{}");
+    if(d.lockUntil && Date.now() < d.lockUntil){
+        alert("Login dikunci sementara");
+        return true;
+    }
+    return false;
+}
+
+function failAttempt(){
+    let d = JSON.parse(localStorage.getItem("loginAttempts") || "{}");
+    d.count = (d.count || 0) + 1;
+    if(d.count >= MAX_ATTEMPTS) d.lockUntil = Date.now() + LOCK_TIME;
+    localStorage.setItem("loginAttempts", JSON.stringify(d));
 }
 
 // LOGIN
-loginForm.addEventListener("submit", async e=>{
-    e.preventDefault(); clearErrors(loginForm);
-    const username=loginUser.value.trim();
-    const password=loginPass.value.trim();
-    let valid=true;
-    if(!username){ setError(loginUser,"Username wajib diisi"); valid=false; }
-    if(!password){ setError(loginPass,"Password wajib diisi"); valid=false; }
-    if(!valid){ playError(); return; }
+loginForm.onsubmit = async e=>{
+    e.preventDefault();
+    if(checkLock()) return;
 
-    const accounts=JSON.parse(localStorage.getItem("accounts")||"[]");
-    const hashPass=await hashText(password);
-    const account=accounts.find(acc=>acc.username===username && acc.password===hashPass);
+    const u = loginUser.value.trim();
+    const p = loginPass.value.trim();
 
-    if(account){ playSuccess(); alert(`LOGIN BERHASIL 🚀\nSelamat datang, ${username}!`); loginForm.reset(); }
-    else{ setError(loginUser,"Username atau password salah"); setError(loginPass,""); playError(); }
-});
+    const accs = JSON.parse(localStorage.getItem("accounts")||"[]");
+    const acc = accs.find(a=>a.username===u);
+    if(!acc){ failAttempt(); playError(); return; }
+
+    const hash = await hashPassword(p, acc.salt);
+    if(hash !== acc.password){ failAttempt(); playError(); return; }
+
+    localStorage.setItem("loggedInUser", u);
+    localStorage.setItem("loginTime", Date.now());
+    playSuccess();
+    setTimeout(()=>location.href="dashboard.html",800);
+};
 
 // REGISTER
-registerForm.addEventListener("submit", async e=>{
-    e.preventDefault(); clearErrors(registerForm);
-    const username=regUser.value.trim();
-    const password=regPass.value.trim();
-    const confirm=regConfirm.value.trim();
-    let valid=true;
-    if(!username){ setError(regUser,"Username wajib diisi"); valid=false; }
-    if(password.length<6){ setError(regPass,"Password minimal 6 karakter"); valid=false; }
-    if(password!==confirm){ setError(regConfirm,"Password tidak sama"); valid=false; }
-    if(!valid){ playError(); return; }
+registerForm.onsubmit = async e=>{
+    e.preventDefault();
 
-    let accounts=JSON.parse(localStorage.getItem("accounts")||"[]");
-    if(accounts.find(acc=>acc.username===username)){ setError(regUser,"Username sudah terdaftar"); playError(); return; }
+    const u = regUser.value.trim();
+    const p = regPass.value.trim();
+    if(p.length < 6) return playError();
 
-    const hashPass=await hashText(password);
-    accounts.push({username,password:hashPass});
-    localStorage.setItem("accounts",JSON.stringify(accounts));
+    let accs = JSON.parse(localStorage.getItem("accounts")||"[]");
+    if(accs.find(a=>a.username===u)) return playError();
 
-    playSuccess(); alert(`AKUN BERHASIL DIBUAT 🎉\nUsername: ${username}`);
-    registerForm.reset(); showLogin();
-});
+    const salt = crypto.randomUUID();
+    const hash = await hashPassword(p, salt);
+    accs.push({username:u,password:hash,salt});
+    localStorage.setItem("accounts",JSON.stringify(accs));
 
-// HELPERS
-function setError(input,message){ const group=input.parentElement; group.classList.add("input-error"); group.querySelector(".error").textContent=message; }
-function clearErrors(form){ form.querySelectorAll(".input-group").forEach(g=>g.classList.remove("input-error")); form.querySelectorAll(".error").forEach(e=>e.textContent=""); }
+    playSuccess();
+    showLogin();
+};
+
 function playError(){ errorSound.currentTime=0; errorSound.play(); }
 function playSuccess(){ successSound.currentTime=0; successSound.play(); }
