@@ -1,27 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
-    <h2>ACCESS GRANTED</h2>
-    <p id="user"></p>
-    <button onclick="logout()">LOGOUT</button>
+<div class="scanline"></div>
+<div class="noise"></div>
+
+<div class="container" style="text-align:center;">
+    <h2 class="glitch" data-text="DASHBOARD">DASHBOARD</h2>
+    <p style="color:#00ff88; margin:20px 0;">Selamat datang, <span id="userName" style="color:#00ffff; font-weight:bold;"></span>!</p>
+    <button id="logoutBtn">LOGOUT</button>
 </div>
 
 <script>
-const u = localStorage.getItem("sessionUser");
-if(!u) location.href="index.html";
-document.getElementById("user").innerText = u;
+    // Cek session
+    const sessionUser = localStorage.getItem("sessionUser");
+    if(!sessionUser){
+        alert("Silakan login terlebih dahulu");
+        location.href = "index.html";
+    }
 
-function logout(){
-    localStorage.removeItem("sessionUser");
-    location.href="index.html";
-}
+    document.getElementById("userName").textContent = sessionUser;
+
+    // Logout
+    document.getElementById("logoutBtn").onclick = () => {
+        localStorage.removeItem("sessionUser");
+        location.href = "index.html";
+    };
 </script>
 
 </body>
