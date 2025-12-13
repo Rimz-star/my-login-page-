@@ -1,33 +1,52 @@
 const form = document.getElementById("loginForm");
 const username = document.getElementById("username");
 const password = document.getElementById("password");
+const togglePassword = document.getElementById("togglePassword");
+
+const errorSound = document.getElementById("errorSound");
+const successSound = document.getElementById("successSound");
 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     let valid = true;
 
-    // Reset error
     document.querySelectorAll(".error").forEach(el => el.textContent = "");
+    document.querySelectorAll(".input-group").forEach(el => el.classList.remove("input-error"));
 
-    // Validasi username
     if (username.value.trim() === "") {
-        username.nextElementSibling.nextElementSibling.textContent = "Username wajib diisi";
+        setError(username, "Username wajib diisi");
         valid = false;
     }
 
-    // Validasi password
     if (password.value.trim() === "") {
-        password.nextElementSibling.nextElementSibling.textContent = "Password wajib diisi";
+        setError(password, "Password wajib diisi");
         valid = false;
     } else if (password.value.length < 6) {
-        password.nextElementSibling.nextElementSibling.textContent = "Password minimal 6 karakter";
+        setError(password, "Password minimal 6 karakter");
         valid = false;
     }
 
-    if (valid) {
-        alert("Login berhasil (dummy) 🚀");
-        // redirect / kirim ke backend
-        // window.location.href = "dashboard.html";
+    if (!valid) {
+        errorSound.currentTime = 0;
+        errorSound.play();
+    } else {
+        successSound.play();
+        setTimeout(() => {
+            alert("ACCESS GRANTED 🚀");
+        }, 300);
     }
+});
+
+function setError(input, message) {
+    const group = input.parentElement;
+    group.classList.add("input-error");
+    group.querySelector(".error").textContent = message;
+}
+
+// SHOW / HIDE PASSWORD
+togglePassword.addEventListener("click", function () {
+    password.type = password.type === "password" ? "text" : "password";
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
 });
