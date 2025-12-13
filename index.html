@@ -16,20 +16,21 @@
         <h2>CYBER LOGIN</h2>
         <form id="loginForm">
             <div class="input-group">
-                <input type="text" id="loginUser">
+                <input type="text" id="loginUser" placeholder=" ">
                 <label>Username</label>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="loginPass">
+                <input type="password" id="loginPass" placeholder=" ">
                 <label>Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
             </div>
 
-            <button>ACCESS</button>
-            <p class="switch">Belum punya akun?
+            <button type="submit">ACCESS</button>
+            <p class="switch">
+                Belum punya akun?
                 <span onclick="showRegister()">Create Akun</span>
             </p>
         </form>
@@ -40,27 +41,28 @@
         <h2>CREATE AKUN</h2>
         <form id="registerForm">
             <div class="input-group">
-                <input type="text" id="regUser">
+                <input type="text" id="regUser" placeholder=" ">
                 <label>Username</label>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="regPass">
+                <input type="password" id="regPass" placeholder=" ">
                 <label>Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
             </div>
 
             <div class="input-group password">
-                <input type="password" id="regConfirm">
+                <input type="password" id="regConfirm" placeholder=" ">
                 <label>Confirm Password</label>
                 <i class="fa-solid fa-eye toggle"></i>
                 <small class="error"></small>
             </div>
 
-            <button>REGISTER</button>
-            <p class="switch">Sudah punya akun?
+            <button type="submit">REGISTER</button>
+            <p class="switch">
+                Sudah punya akun?
                 <span onclick="showLogin()">Login</span>
             </p>
         </form>
@@ -68,8 +70,9 @@
 
 </div>
 
-<audio id="errorSound" src="sounds/error please try aga.mp3"></audio>
-<audio id="successSound" src="sounds/Done Welcome back.mp3"></audio>
+<!-- AUDIO (NO SPACES) -->
+<audio id="errorSound" src="sounds/error-please-try-again.mp3"></audio>
+<audio id="successSound" src="sounds/done-welcome-back.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
