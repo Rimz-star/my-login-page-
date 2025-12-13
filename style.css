@@ -1,68 +1,36 @@
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
-body {
-    min-height:100vh;
-    background:#000;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    position:relative;
+/* ===================== */
+/* 📱 MOBILE RESPONSIVE */
+/* ===================== */
+@media (max-width: 768px) {
+
+    body {
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 420px;
+        padding: 28px 22px;
+        margin-top: 40px;
+        animation: none;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    .input-group input {
+        font-size: 16px;
+        padding: 14px 42px 14px 12px;
+    }
+
+    .scanline {
+        display: none;
+    }
+
+    .noise {
+        animation: none;
+        opacity: 0.4;
+    }
 }
-
-/* SCANLINE + NOISE */
-.scanline {
-    position:absolute; width:100%; height:2px;
-    background:linear-gradient(rgba(0,255,136,0.4), rgba(0,255,136,0));
-    animation: scan 2s linear infinite;
-    top:0; pointer-events:none;
-}
-@keyframes scan {0%{top:0}100%{top:100%}}
-
-.noise {
-    position:absolute; width:100%; height:100%; background:transparent;
-    pointer-events:none; background-image:repeating-linear-gradient(0deg, rgba(0,255,136,0.02) 0, rgba(0,255,136,0.02) 1px, transparent 1px, transparent 2px);
-    animation: noiseAnim 0.2s steps(2) infinite;
-}
-@keyframes noiseAnim {0%{background-position:0 0}100%{background-position:100% 100%}}
-
-.container {
-    width:360px; background:#0a0a0a; padding:40px; border-radius:14px;
-    box-shadow:0 0 20px #00ff88, 0 0 40px #00ff88 inset;
-    animation: neonPulse 1.5s ease-in-out infinite alternate;
-    z-index:1;
-}
-@keyframes neonPulse {0%{box-shadow:0 0 20px #00ff88,0 0 40px #00ff88 inset;}100%{box-shadow:0 0 40px #00ff88,0 0 60px #00ff88 inset;}}
-
-.box { display:none; }
-.box.active { display:block; animation:fade 0.6s ease; }
-@keyframes fade { from{opacity:0; transform:scale(0.95);} to{opacity:1; transform:scale(1);} }
-
-h2 { text-align:center; color:#00ff88; margin-bottom:30px; letter-spacing:3px; text-shadow:0 0 5px #00ff88; position:relative; }
-
-/* GLITCH EFFECT */
-.glitch { position: relative; color: #00ff88; }
-.glitch::before, .glitch::after { content: attr(data-text); position:absolute; left:0; top:0; width:100%; overflow:hidden; }
-.glitch::before { left:2px; text-shadow:-2px 0 #ff00ff; clip:rect(0,900px,0,0); animation:glitchTop 2s infinite linear alternate-reverse; }
-.glitch::after { left:-2px; text-shadow:-2px 0 #00ffff; clip:rect(0,900px,0,0); animation:glitchBottom 2s infinite linear alternate-reverse; }
-@keyframes glitchTop { 0%{clip:rect(0,900px,5px,0);} 50%{clip:rect(5px,900px,10px,0);} 100%{clip:rect(0,900px,5px,0);} }
-@keyframes glitchBottom { 0%{clip:rect(10px,900px,15px,0);} 50%{clip:rect(15px,900px,20px,0);} 100%{clip:rect(10px,900px,15px,0);} }
-
-/* INPUTS */
-.input-group { position:relative; margin-bottom:32px; }
-.input-group input { width:100%; padding:10px 38px 10px 10px; background:transparent; border:1px solid #00ff88; border-radius:6px; color:#00ff88; outline:none; box-shadow:0 0 5px #00ff88 inset; transition:0.3s; }
-.input-group input:focus { box-shadow:0 0 15px #00ff88 inset; border-color:#00ff88; }
-.input-group label { position:absolute; top:50%; left:10px; transform:translateY(-50%); color:#00ff88; background:#0a0a0a; padding:0 6px; transition:.3s; pointer-events:none; }
-.input-group input:focus + label, .input-group input:not(:placeholder-shown) + label { top:-8px; font-size:12px; }
-.password i { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:#00ff88; cursor:pointer; font-size:15px; }
-
-button { width:100%; padding:12px; background:#00ff88; border:none; border-radius:6px; font-weight:bold; cursor:pointer; color:#000; box-shadow:0 0 10px #00ff88,0 0 30px #00ff88 inset; transition:0.3s; }
-button:hover, .glitch-btn:hover { animation:glitchBtn 0.3s linear infinite; }
-@keyframes glitchBtn {0%{transform:translate(1px,0);}25%{transform:translate(-1px,1px);}50%{transform:translate(1px,-1px);}75%{transform:translate(-1px,0);}100%{transform:translate(1px,1px);} }
-
-.switch { margin-top:15px; text-align:center; color:#ccc; font-size:14px; }
-.switch span { color:#00ff88; cursor:pointer; font-weight:bold; }
-
-.error { font-size:12px; color:#ff3333; margin-top:6px; display:block; text-shadow:0 0 3px #ff3333; }
-.input-error input { border-color:#ff3333; box-shadow:0 0 15px #ff3333 inset; animation:shake 0.3s; }
-.input-error label { color:#ff3333; }
-@keyframes shake {0%{transform:translateX(0);}25%{transform:translateX(-4px);}50%{transform:translateX(4px);}75%{transform:translateX(-4px);}100%{transform:translateX(0);}}
