@@ -1,52 +1,65 @@
-const form = document.getElementById("loginForm");
-const username = document.getElementById("username");
-const password = document.getElementById("password");
-const togglePassword = document.getElementById("togglePassword");
-
 const errorSound = document.getElementById("errorSound");
 const successSound = document.getElementById("successSound");
 
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    let valid = true;
-
-    document.querySelectorAll(".error").forEach(el => el.textContent = "");
-    document.querySelectorAll(".input-group").forEach(el => el.classList.remove("input-error"));
-
-    if (username.value.trim() === "") {
-        setError(username, "Username wajib diisi");
-        valid = false;
-    }
-
-    if (password.value.trim() === "") {
-        setError(password, "Password wajib diisi");
-        valid = false;
-    } else if (password.value.length < 6) {
-        setError(password, "Password minimal 6 karakter");
-        valid = false;
-    }
-
-    if (!valid) {
-        errorSound.currentTime = 0;
-        errorSound.play();
-    } else {
-        successSound.play();
-        setTimeout(() => {
-            alert("ACCESS GRANTED 🚀");
-        }, 300);
-    }
-});
-
-function setError(input, message) {
-    const group = input.parentElement;
-    group.classList.add("input-error");
-    group.querySelector(".error").textContent = message;
+function showRegister() {
+    loginBox.classList.remove("active");
+    registerBox.classList.add("active");
 }
 
-// SHOW / HIDE PASSWORD
-togglePassword.addEventListener("click", function () {
-    password.type = password.type === "password" ? "text" : "password";
-    this.classList.toggle("fa-eye");
-    this.classList.toggle("fa-eye-slash");
+function showLogin() {
+    registerBox.classList.remove("active");
+    loginBox.classList.add("active");
+}
+
+// Toggle Password
+document.querySelectorAll(".toggle").forEach(icon => {
+    icon.onclick = () => {
+        const input = icon.previousElementSibling;
+        input.type = input.type === "password" ? "text" : "password";
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+    };
 });
+
+// LOGIN
+loginForm.onsubmit = e => {
+    e.preventDefault();
+    clear(loginForm);
+
+    let valid = true;
+    if (!loginUser.value) error(loginUser, "Username wajib diisi"), valid = false;
+    if (!loginPass.value) error(loginPass, "Password wajib diisi"), valid = false;
+
+    if (!valid) errorSound.play();
+    else successSound.play(), alert("LOGIN BERHASIL 🚀");
+};
+
+// REGISTER
+registerForm.onsubmit = e => {
+    e.preventDefault();
+    clear(registerForm);
+
+    let valid = true;
+    if (!regUser.value) error(regUser, "Username wajib diisi"), valid = false;
+    if (regPass.value.length < 6) error(regPass, "Min 6 karakter"), valid = false;
+    if (regPass.value !== regConfirm.value)
+        error(regConfirm, "Password tidak sama"), valid = false;
+
+    if (!valid) errorSound.play();
+    else {
+        successSound.play();
+        alert("AKUN BERHASIL DIBUAT 🎉");
+        showLogin();
+    }
+};
+
+function error(input, msg) {
+    const group = input.parentElement;
+    group.classList.add("input-error");
+    group.querySelector(".error").textContent = msg;
+}
+
+function clear(form) {
+    form.querySelectorAll(".input-group").forEach(g => g.classList.remove("input-error"));
+    form.querySelectorAll(".error").forEach(e => e.textContent = "");
+}
