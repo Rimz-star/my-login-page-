@@ -6,13 +6,14 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     background: radial-gradient(circle, #002a18, #000);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* CONTAINER */
 .container {
     width: 360px;
     background: #0a0a0a;
@@ -21,14 +22,22 @@ body {
     box-shadow: 0 0 30px #00ff88;
 }
 
-.box { display: none; }
-.box.active { display: block; animation: fade 0.6s; }
+/* FORM SWITCH */
+.box {
+    display: none;
+}
+
+.box.active {
+    display: block;
+    animation: fade 0.6s ease;
+}
 
 @keyframes fade {
     from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; }
+    to   { opacity: 1; transform: scale(1); }
 }
 
+/* TITLE */
 h2 {
     text-align: center;
     color: #00ff88;
@@ -36,88 +45,26 @@ h2 {
     letter-spacing: 3px;
 }
 
+/* INPUT */
 .input-group {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 10px;
+    padding: 10px 38px 10px 10px; /* space for eye icon */
     background: transparent;
     border: 1px solid #00ff88;
     border-radius: 6px;
     color: #00ff88;
+    outline: none;
 }
 
+/* FLOATING LABEL */
 .input-group label {
     position: absolute;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    color: #00ff88;
-    background: #0a0a0a;
-    padding: 0 6px;
-    transition: .3s;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: -8px;
-    font-size: 12px;
-}
-
-.password i {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #00ff88;
-    cursor: pointer;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    background: #00ff88;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 20px #00ff88;
-}
-
-.switch {
-    margin-top: 15px;
-    text-align: center;
-    color: #ccc;
-    font-size: 14px;
-}
-
-.switch span {
-    color: #00ff88;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* ERROR */
-.error {
-    font-size: 12px;
-    color: #ff3333;
-    margin-top: 5px;
-    display: block;
-}
-
-.input-error input {
-    border-color: #ff3333;
-    box-shadow: 0 0 15px #ff3333;
-    animation: shake 0.3s;
-}
-
-@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    50% { transform: translateX(4px); }
-    75% { transform: translateX(-4px); }
-    100% { transform: translateX(0); }
-}
+    color: #0
