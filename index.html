@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <title>Cyber Auth</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<title>Cyber Auth Final</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+<div class="scanline"></div>
+<div class="noise"></div>
 
 <div class="container">
 
     <!-- LOGIN -->
     <div class="box active" id="loginBox">
-        <h2>CYBER LOGIN</h2>
+        <h2 class="glitch" data-text="CYBER LOGIN">CYBER LOGIN</h2>
         <form id="loginForm">
             <div class="input-group">
                 <input type="text" id="loginUser" placeholder=" ">
@@ -28,17 +30,16 @@
                 <small class="error"></small>
             </div>
 
-            <button type="submit">ACCESS</button>
+            <button type="submit" class="glitch-btn">ACCESS</button>
             <p class="switch">
-                Belum punya akun?
-                <span onclick="showRegister()">Create Akun</span>
+                Belum punya akun? <span onclick="showRegister()">Create Akun</span>
             </p>
         </form>
     </div>
 
     <!-- REGISTER -->
     <div class="box" id="registerBox">
-        <h2>CREATE AKUN</h2>
+        <h2 class="glitch" data-text="CREATE AKUN">CREATE AKUN</h2>
         <form id="registerForm">
             <div class="input-group">
                 <input type="text" id="regUser" placeholder=" ">
@@ -60,17 +61,15 @@
                 <small class="error"></small>
             </div>
 
-            <button type="submit">REGISTER</button>
+            <button type="submit" class="glitch-btn">REGISTER</button>
             <p class="switch">
-                Sudah punya akun?
-                <span onclick="showLogin()">Login</span>
+                Sudah punya akun? <span onclick="showLogin()">Login</span>
             </p>
         </form>
     </div>
 
 </div>
 
-<!-- AUDIO (NO SPACES) -->
 <audio id="errorSound" src="sounds/error-please-try-again.mp3"></audio>
 <audio id="successSound" src="sounds2/done-welcome-back.mp3"></audio>
 
