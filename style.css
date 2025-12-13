@@ -16,154 +16,124 @@ body {
     position: relative;
 }
 
-/* ===================== */
-/* SCANLINE + NOISE */
-/* ===================== */
-
+/* SCANLINE */
 .scanline {
     position: absolute;
     width: 100%;
     height: 2px;
-    background: linear-gradient(rgba(0,255,136,0.4), rgba(0,255,136,0));
+    background: linear-gradient(rgba(0,255,136,.4), rgba(0,255,136,0));
     animation: scan 2s linear infinite;
-    top: 0;
     pointer-events: none;
-    z-index: 2;
 }
+@keyframes scan { 0%{top:0}100%{top:100%} }
 
-@keyframes scan {
-    0% { top: 0; }
-    100% { top: 100%; }
-}
-
+/* NOISE */
 .noise {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+    inset: 0;
     background-image: repeating-linear-gradient(
         0deg,
-        rgba(0,255,136,0.02) 0,
-        rgba(0,255,136,0.02) 1px,
+        rgba(0,255,136,.02) 0,
+        rgba(0,255,136,.02) 1px,
         transparent 1px,
         transparent 2px
     );
-    animation: noiseAnim 0.2s steps(2) infinite;
-    z-index: 1;
+    animation: noise .2s steps(2) infinite;
+    pointer-events: none;
 }
+@keyframes noise { to { background-position: 100% 100% } }
 
-@keyframes noiseAnim {
-    0% { background-position: 0 0; }
-    100% { background-position: 100% 100%; }
-}
-
-/* ===================== */
 /* CONTAINER */
-/* ===================== */
-
 .container {
     width: 360px;
     background: #0a0a0a;
     padding: 40px;
     border-radius: 14px;
-    box-shadow:
-        0 0 20px #00ff88,
-        0 0 40px #00ff88 inset;
-    animation: neonPulse 1.5s ease-in-out infinite alternate;
-    z-index: 3;
+    box-shadow: 0 0 20px #00ff88, inset 0 0 40px #00ff88;
+    animation: neon 1.5s infinite alternate;
+    z-index: 1;
+}
+@keyframes neon {
+    to { box-shadow: 0 0 40px #00ff88, inset 0 0 60px #00ff88 }
 }
 
-@keyframes neonPulse {
-    0% {
-        box-shadow: 0 0 20px #00ff88, 0 0 40px #00ff88 inset;
-    }
-    100% {
-        box-shadow: 0 0 40px #00ff88, 0 0 60px #00ff88 inset;
-    }
-}
+/* BOX */
+.box { display: none }
+.box.active { display: block }
 
-/* ===================== */
-/* BOX SWITCH */
-/* ===================== */
-
-.box {
-    display: none;
-}
-
-.box.active {
-    display: block;
-    animation: fade 0.6s ease;
-}
-
-@keyframes fade {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* ===================== */
-/* TITLE + GLITCH */
-/* ===================== */
-
+/* TITLE */
 h2 {
     text-align: center;
     color: #00ff88;
     margin-bottom: 30px;
     letter-spacing: 3px;
-    text-shadow: 0 0 5px #00ff88;
-    position: relative;
 }
 
-.glitch {
-    position: relative;
-    color: #00ff88;
-}
-
+/* GLITCH */
 .glitch::before,
 .glitch::after {
     content: attr(data-text);
     position: absolute;
     left: 0;
-    top: 0;
-    width: 100%;
-    overflow: hidden;
 }
+.glitch::before { text-shadow: -2px 0 #f0f; }
+.glitch::after { text-shadow: 2px 0 #0ff; }
 
-.glitch::before {
-    left: 2px;
-    text-shadow: -2px 0 #ff00ff;
-    clip: rect(0, 900px, 0, 0);
-    animation: glitchTop 2s infinite linear alternate-reverse;
-}
-
-.glitch::after {
-    left: -2px;
-    text-shadow: -2px 0 #00ffff;
-    clip: rect(0, 900px, 0, 0);
-    animation: glitchBottom 2s infinite linear alternate-reverse;
-}
-
-@keyframes glitchTop {
-    0% { clip: rect(0, 900px, 5px, 0); }
-    50% { clip: rect(5px, 900px, 10px, 0); }
-    100% { clip: rect(0, 900px, 5px, 0); }
-}
-
-@keyframes glitchBottom {
-    0% { clip: rect(10px, 900px, 15px, 0); }
-    50% { clip: rect(15px, 900px, 20px, 0); }
-    100% { clip: rect(10px, 900px, 15px, 0); }
-}
-
-/* ===================== */
-/* INPUTS */
-/* ===================== */
-
+/* INPUT */
 .input-group {
     position: relative;
-    margin-bottom: 32px;
+    margin-bottom: 30px;
+}
+.input-group input {
+    width: 100%;
+    padding: 12px 38px 12px 10px;
+    background: transparent;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    border-radius: 6px;
+}
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #00ff88;
+    transition: .3s;
+}
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -8px;
+    font-size: 12px;
+}
+
+/* PASSWORD */
+.password i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #00ff88;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #00ff88;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ERROR */
+.error { color: #ff3333; font-size: 12px }
+.input-error input { border-color: #ff3333 }
+
+/* MOBILE */
+@media (max-width: 768px) {
+    body { padding: 20px; align-items: flex-start }
+    .container { width: 100%; margin-top: 40px; animation: none }
+    .scanline { display: none }
+}
