@@ -2,13 +2,17 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Cyber Login</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="login-container">
-    <h2>LOGIN</h2>
+    <h2>CYBER LOGIN</h2>
 
     <form id="loginForm">
         <div class="input-group">
@@ -17,15 +21,20 @@
             <small class="error"></small>
         </div>
 
-        <div class="input-group">
+        <div class="input-group password-group">
             <input type="password" id="password">
             <label>Password</label>
+            <i class="fa-solid fa-eye" id="togglePassword"></i>
             <small class="error"></small>
         </div>
 
-        <button type="submit">MASUK</button>
+        <button type="submit">ACCESS</button>
     </form>
 </div>
+
+<!-- SOUND -->
+<audio id="errorSound" src="sounds/error.mp3"></audio>
+<audio id="successSound" src="sounds/success.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
