@@ -7,30 +7,38 @@
 
 body {
     height: 100vh;
-    background: #0a0a0a;
+    background: radial-gradient(circle, #001a0f, #000);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* CONTAINER */
 .login-container {
-    width: 330px;
+    width: 340px;
     padding: 40px;
-    background: #111;
-    border-radius: 12px;
-    box-shadow: 0 0 20px #00ff88;
+    background: rgba(10, 10, 10, 0.95);
+    border-radius: 14px;
+    box-shadow: 0 0 30px #00ff88;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .login-container h2 {
     text-align: center;
     color: #00ff88;
     margin-bottom: 30px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
 }
 
+/* INPUT */
 .input-group {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .input-group input {
@@ -51,8 +59,8 @@ body {
     color: #00ff88;
     pointer-events: none;
     transition: 0.3s;
-    background: #111;
-    padding: 0 5px;
+    background: rgba(10,10,10,0.9);
+    padding: 0 6px;
 }
 
 .input-group input:focus + label,
@@ -61,27 +69,64 @@ body {
     font-size: 12px;
 }
 
+/* PASSWORD ICON */
+.password-group i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00ff88;
+    cursor: pointer;
+}
+
+/* ERROR */
 .error {
-    color: #ff4d4d;
+    color: #ff3333;
     font-size: 12px;
-    margin-top: 5px;
+    margin-top: 6px;
     display: block;
 }
 
+.input-error input {
+    border-color: #ff3333;
+    box-shadow: 0 0 15px #ff3333;
+    animation: shake 0.3s;
+}
+
+.input-error label {
+    color: #ff3333;
+}
+
+/* SHAKE */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    75% { transform: translateX(-4px); }
+    100% { transform: translateX(0); }
+}
+
+/* BUTTON */
 button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     background: #00ff88;
     border: none;
     border-radius: 6px;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
     color: #000;
-    box-shadow: 0 0 15px #00ff88;
+    cursor: pointer;
+    box-shadow: 0 0 20px #00ff88;
 }
 
 button:hover {
-    background: #00cc6f;
-    box-shadow: 0 0 25px #00ff88;
+    box-shadow: 0 0 30px #00ff88;
+}
+
+/* MOBILE */
+@media (max-width: 400px) {
+    .login-container {
+        width: 90%;
+    }
 }
