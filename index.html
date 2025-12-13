@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cyber Auth Final</title>
+<title>Cyber Auth</title>
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -15,12 +15,14 @@
 
 <div class="container">
 
+    <!-- LOGIN -->
     <div class="box active" id="loginBox">
         <h2 class="glitch" data-text="CYBER LOGIN">PRIVATE LOGIN</h2>
-        <form id="loginForm">
+
+        <form id="loginForm" autocomplete="off">
 
             <div class="input-group">
-                <input type="text" id="loginUser" placeholder=" " autocomplete="off">
+                <input type="text" id="loginUser" placeholder=" ">
                 <label>Username</label>
                 <small class="error"></small>
             </div>
@@ -35,17 +37,20 @@
             <button type="submit">ACCESS</button>
 
             <p class="switch">
-                Belum punya akun? <span onclick="showRegister()">Create Akun</span>
+                Belum punya akun?
+                <span onclick="showRegister()">Create Akun</span>
             </p>
         </form>
     </div>
 
+    <!-- REGISTER -->
     <div class="box" id="registerBox">
         <h2 class="glitch" data-text="CREATE AKUN">CREATE AKUN</h2>
-        <form id="registerForm">
+
+        <form id="registerForm" autocomplete="off">
 
             <div class="input-group">
-                <input type="text" id="regUser" placeholder=" " autocomplete="off">
+                <input type="text" id="regUser" placeholder=" ">
                 <label>Username</label>
                 <small class="error"></small>
             </div>
@@ -67,7 +72,8 @@
             <button type="submit">REGISTER</button>
 
             <p class="switch">
-                Sudah punya akun? <span onclick="showLogin()">Login</span>
+                Sudah punya akun?
+                <span onclick="showLogin()">Login</span>
             </p>
         </form>
     </div>
