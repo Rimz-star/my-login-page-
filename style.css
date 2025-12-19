@@ -13,7 +13,6 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
 }
 
 /* SCANLINE */
@@ -21,27 +20,25 @@ body {
     position: absolute;
     width: 100%;
     height: 2px;
-    background: linear-gradient(rgba(0,255,136,.4), rgba(0,255,136,0));
+    background: linear-gradient(rgba(0,255,136,.4), transparent);
     animation: scan 2s linear infinite;
-    pointer-events: none;
 }
-@keyframes scan { 0% { top: 0 } 100% { top: 100% } }
+@keyframes scan { from { top:0 } to { top:100% } }
 
 /* NOISE */
 .noise {
     position: absolute;
     inset: 0;
-    background-image: repeating-linear-gradient(
+    background: repeating-linear-gradient(
         0deg,
-        rgba(0,255,136,.02) 0,
+        rgba(0,255,136,.02),
         rgba(0,255,136,.02) 1px,
         transparent 1px,
         transparent 2px
     );
-    animation: noise .2s steps(2) infinite;
-    pointer-events: none;
+    animation: noise .2s infinite;
 }
-@keyframes noise { to { background-position: 100% 100% } }
+@keyframes noise { to { background-position:100% 100% } }
 
 /* CONTAINER */
 .container {
@@ -49,127 +46,138 @@ body {
     background: #0a0a0a;
     padding: 40px;
     border-radius: 14px;
-    box-shadow: 0 0 20px #00ff88, inset 0 0 40px #00ff88;
-    animation: neon 1.5s infinite alternate;
+    box-shadow: 0 0 25px #00ff88;
     z-index: 1;
-}
-@keyframes neon {
-    to { box-shadow: 0 0 40px #00ff88, inset 0 0 60px #00ff88 }
 }
 
 /* BOX */
-.box { display: none }
-.box.active { display: block }
+.box { display:none }
+.box.active { display:block }
 
 /* TITLE */
 h2 {
     text-align: center;
-    color: #00ff88; /* hijau neon */
-    margin-bottom: 30px;
+    color: #00ff88;
+    margin-bottom: 20px;
     letter-spacing: 3px;
-    position: relative;
-}
-
-/* GLITCH */
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.glitch::before {
-    color: #00ffff; /* biru neon */
-    text-shadow: -2px 0 #00ffff;
-}
-
-.glitch::after {
-    color: #00ff88; /* hijau neon */
-    text-shadow: 2px 0 #00ff88;
 }
 
 /* INPUT */
 .input-group {
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
-
 .input-group input {
     width: 100%;
     padding: 12px 38px 12px 10px;
     background: transparent;
     border: 1px solid #00ff88;
-    color: #00ff88; /* hijau neon */
+    color: #00ff88;
     border-radius: 6px;
 }
-
 .input-group label {
     position: absolute;
     top: 50%;
     left: 10px;
     transform: translateY(-50%);
-    color: #00ff88; /* hijau neon */
+    color: #00ff88;
     transition: .3s;
 }
-
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown) + label {
     top: -8px;
     font-size: 12px;
 }
 
-/* PASSWORD TOGGLE ICON */
+/* TOGGLE */
 .password i {
     position: absolute;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #00ffff; /* biru neon */
+    color: #00ffff;
 }
 
 /* BUTTON */
 button {
     width: 100%;
     padding: 12px;
-    background: #00ff88; /* hijau neon */
-    color: #000;
+    background: #00ff88;
     border: none;
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
-    transition: 0.2s;
-}
-button:hover {
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff88;
 }
 
-/* ERROR */
-.error {
-    color: #00ffff; /* biru neon */
-    font-size: 12px;
-}
-.input-error input {
-    border-color: #00ffff; /* biru neon */
-}
-
-/* SWITCH TEXT */
+/* SWITCH */
 .switch {
-    color: #00ff88; /* hijau neon */
+    color: #00ff88;
     text-align: center;
     margin-top: 15px;
-    font-size: 14px;
 }
 .switch span {
-    color: #00ffff; /* biru neon */
+    color: #00ffff;
     cursor: pointer;
-    font-weight: bold;
 }
 
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-    body { padding: 20px; align-items: flex-start; }
-    .container { width: 100%; margin-top: 40px; animation: none; }
-    .scanline { display: none; }
+/* ===== MUSIC PLAYER ===== */
+.music-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.music-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 15px #00ff88;
+}
+.music-circle i {
+    color: #00ff88;
+    font-size: 22px;
+}
+
+/* LYRICS */
+.lyrics-box {
+    position: relative;
+    width: 200px;
+    height: 60px;
+    overflow: hidden;
+    border-left: 2px solid #fff;
+    padding-left: 10px;
+}
+
+.read-line {
+    position: absolute;
+    top: 22px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    z-index: 2;
+}
+
+.lyrics {
+    position: absolute;
+    width: 100%;
+}
+
+.lyric-line {
+    color: #00ffff;
+    font-size: 12px;
+    margin: 6px 0;
+    animation: lyricUp 3s linear forwards;
+}
+
+@keyframes lyricUp {
+    from { transform: translateY(40px); opacity:1 }
+    to { transform: translateY(-60px); opacity:0 }
 }
