@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cyber Auth</title>
+
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 <body>
 
@@ -16,10 +18,21 @@
 
     <!-- LOGIN -->
     <div class="box active" id="loginBox">
-        <h2 class="glitch">PRIVATE LOGIN</h2>
+        <h2 class="glitch" data-text="PRIVATE LOGIN">PRIVATE LOGIN</h2>
+
+        <!-- 🎵 MUSIC PLAYER -->
+        <div class="music-wrapper">
+            <div class="music-circle" id="musicBtn">
+                <i class="fa-solid fa-play" id="musicIcon"></i>
+            </div>
+
+            <div class="lyrics-box">
+                <div class="read-line"></div>
+                <div class="lyrics" id="lyrics"></div>
+            </div>
+        </div>
 
         <form id="loginForm" autocomplete="off">
-
             <div class="input-group">
                 <input type="text" id="loginUser" placeholder=" " required>
                 <label>Username</label>
@@ -41,10 +54,9 @@
 
     <!-- REGISTER -->
     <div class="box" id="registerBox">
-        <h2 class="glitch">CREATE AKUN</h2>
+        <h2 class="glitch" data-text="CREATE AKUN">CREATE AKUN</h2>
 
         <form id="registerForm" autocomplete="off">
-
             <div class="input-group">
                 <input type="text" id="regUser" placeholder=" " required>
                 <label>Username</label>
@@ -72,6 +84,7 @@
 
 </div>
 
+<audio id="bgMusic" src="music/cyber.mp3"></audio>
 <audio id="errorSound" src="sounds/error-please-try-again.mp3"></audio>
 <audio id="successSound" src="sounds2/done-welcome-back.mp3"></audio>
 
