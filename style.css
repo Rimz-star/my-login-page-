@@ -1,155 +1,45 @@
-/* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background: #000;
+/* LAYOUT */
+.layout {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-/* SCANLINE */
-.scanline {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(rgba(0,255,136,.4), transparent);
-    animation: scan 2s linear infinite;
-}
-@keyframes scan { from { top:0 } to { top:100% } }
-
-/* NOISE */
-.noise {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(0,255,136,.02),
-        rgba(0,255,136,.02) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    animation: noise .2s infinite;
-}
-@keyframes noise { to { background-position:100% 100% } }
-
-/* CONTAINER */
-.container {
-    width: 360px;
-    background: #0a0a0a;
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: 0 0 25px #00ff88;
+    gap: 30px;
     z-index: 1;
 }
 
-/* BOX */
-.box { display:none }
-.box.active { display:block }
-
-/* TITLE */
-h2 {
-    text-align: center;
-    color: #00ff88;
-    margin-bottom: 20px;
-    letter-spacing: 3px;
-}
-
-/* INPUT */
-.input-group {
-    position: relative;
-    margin-bottom: 25px;
-}
-.input-group input {
-    width: 100%;
-    padding: 12px 38px 12px 10px;
-    background: transparent;
-    border: 1px solid #00ff88;
-    color: #00ff88;
-    border-radius: 6px;
-}
-.input-group label {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: #00ff88;
-    transition: .3s;
-}
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: -8px;
-    font-size: 12px;
-}
-
-/* TOGGLE */
-.password i {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #00ffff;
-}
-
-/* BUTTON */
-button {
-    width: 100%;
-    padding: 12px;
-    background: #00ff88;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* SWITCH */
-.switch {
-    color: #00ff88;
-    text-align: center;
-    margin-top: 15px;
-}
-.switch span {
-    color: #00ffff;
-    cursor: pointer;
-}
-
-/* ===== MUSIC PLAYER ===== */
-.music-wrapper {
+/* MUSIC CONTAINER */
+.music-container {
+    width: 240px;
+    background: #0a0a0a;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 0 20px #00ffff;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
 }
 
+/* MUSIC CIRCLE */
 .music-circle {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     border: 2px solid #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 15px #00ff88;
+    box-shadow: 0 0 25px #00ff88;
+    margin-bottom: 20px;
 }
 .music-circle i {
     color: #00ff88;
-    font-size: 22px;
+    font-size: 26px;
 }
 
 /* LYRICS */
 .lyrics-box {
     position: relative;
-    width: 200px;
-    height: 60px;
+    width: 100%;
+    height: 80px;
     overflow: hidden;
     border-left: 2px solid #fff;
     padding-left: 10px;
@@ -157,7 +47,7 @@ button {
 
 .read-line {
     position: absolute;
-    top: 22px;
+    top: 30px;
     left: 0;
     width: 100%;
     height: 2px;
@@ -165,19 +55,22 @@ button {
     z-index: 2;
 }
 
-.lyrics {
-    position: absolute;
-    width: 100%;
-}
-
 .lyric-line {
     color: #00ffff;
-    font-size: 12px;
+    font-size: 13px;
     margin: 6px 0;
     animation: lyricUp 3s linear forwards;
 }
 
 @keyframes lyricUp {
-    from { transform: translateY(40px); opacity:1 }
-    to { transform: translateY(-60px); opacity:0 }
+    from { transform: translateY(50px); opacity: 1 }
+    to { transform: translateY(-70px); opacity: 0 }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .layout {
+        flex-direction: column;
+        align-items: center;
+    }
 }
