@@ -77,12 +77,22 @@ let lyricIndex = 0;
 
 /* LYRICS DATA */
 const lyricsData = [
-    {time:0.5,text:"SYSTEM ONLINE"},
-    {time:2.0,text:"SECURE CONNECTION"},
-    {time:4.0,text:"AUTHORIZATION CHECK"},
-    {time:6.0,text:"ACCESS GRANTED"},
-    {time:9.0,text:"WELCOME USER"},
-    {time:12.0,text:"CYBER AUTH ACTIVE"}
+    {time:0.5,text:"Going out tonight, changes into something red"},
+    {time:2.0,text:"Her mother doesn't like that kind of dress"},
+    {time:4.0,text:"Everything she never had, she's showing off"},
+    {time:6.0,text:"Driving too fast, moon is breaking through her hair"},
+    {time:9.0,text:"She's heading for something that she won't forget"},
+    {time:12.0,text:"Having no regrets is all that she really wants"},
+    {time:1.0,text:"We're only getting older baby"},
+    {time:1.2,text:"And I've thinking about it lately"},
+    {time:1.5,text:"Does it ever drive you crazy"},
+    {time:1.7,text:"Just how fast the night changes"},
+    {time:1.4,text:"Everything that you've ever dreamed of"},
+    {time:1,3,text:"Disappearing when you wake up"},
+    {time:1.2,text:"But there's nothing to be afraid of"},
+    {time:1.4,text:"Even when the night Even when the night changes"},
+    {time:1.4,text:"It will never change me and you"},
+    
 ];
 
 /* TOGGLE MUSIC */
