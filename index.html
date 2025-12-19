@@ -7,79 +7,81 @@
 
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 <body>
 
 <div class="scanline"></div>
 <div class="noise"></div>
 
-<div class="container">
+<div class="layout">
 
-    <!-- LOGIN -->
-    <div class="box active" id="loginBox">
-        <h2 class="glitch" data-text="PRIVATE LOGIN">PRIVATE LOGIN</h2>
+    <!-- LOGIN CONTAINER -->
+    <div class="container">
 
-        <!-- 🎵 MUSIC PLAYER -->
-        <div class="music-wrapper">
-            <div class="music-circle" id="musicBtn">
-                <i class="fa-solid fa-play" id="musicIcon"></i>
-            </div>
+        <div class="box active" id="loginBox">
+            <h2 class="glitch" data-text="PRIVATE LOGIN">PRIVATE LOGIN</h2>
 
-            <div class="lyrics-box">
-                <div class="read-line"></div>
-                <div class="lyrics" id="lyrics"></div>
-            </div>
+            <form id="loginForm" autocomplete="off">
+                <div class="input-group">
+                    <input type="text" id="loginUser" placeholder=" " required>
+                    <label>Username</label>
+                </div>
+
+                <div class="input-group password">
+                    <input type="password" id="loginPass" placeholder=" " required>
+                    <label>Password</label>
+                    <i class="fa-solid fa-eye toggle" data-target="loginPass"></i>
+                </div>
+
+                <button type="submit">ACCESS</button>
+
+                <p class="switch">
+                    Belum punya akun? <span onclick="showRegister()">Create Akun</span>
+                </p>
+            </form>
         </div>
 
-        <form id="loginForm" autocomplete="off">
-            <div class="input-group">
-                <input type="text" id="loginUser" placeholder=" " required>
-                <label>Username</label>
-            </div>
+        <div class="box" id="registerBox">
+            <h2 class="glitch" data-text="CREATE AKUN">CREATE AKUN</h2>
 
-            <div class="input-group password">
-                <input type="password" id="loginPass" placeholder=" " required>
-                <label>Password</label>
-                <i class="fa-solid fa-eye toggle" data-target="loginPass"></i>
-            </div>
+            <form id="registerForm" autocomplete="off">
+                <div class="input-group">
+                    <input type="text" id="regUser" placeholder=" " required>
+                    <label>Username</label>
+                </div>
 
-            <button type="submit">ACCESS</button>
+                <div class="input-group password">
+                    <input type="password" id="regPass" placeholder=" " required>
+                    <label>Password</label>
+                    <i class="fa-solid fa-eye toggle" data-target="regPass"></i>
+                </div>
 
-            <p class="switch">
-                Belum punya akun? <span onclick="showRegister()">Create Akun</span>
-            </p>
-        </form>
+                <div class="input-group password">
+                    <input type="password" id="regConfirm" placeholder=" " required>
+                    <label>Confirm Password</label>
+                    <i class="fa-solid fa-eye toggle" data-target="regConfirm"></i>
+                </div>
+
+                <button type="submit">REGISTER</button>
+
+                <p class="switch">
+                    Sudah punya akun? <span onclick="showLogin()">Login</span>
+                </p>
+            </form>
+        </div>
+
     </div>
 
-    <!-- REGISTER -->
-    <div class="box" id="registerBox">
-        <h2 class="glitch" data-text="CREATE AKUN">CREATE AKUN</h2>
+    <!-- 🎵 MUSIC CONTAINER -->
+    <div class="music-container">
+        <div class="music-circle" id="musicBtn">
+            <i class="fa-solid fa-play" id="musicIcon"></i>
+        </div>
 
-        <form id="registerForm" autocomplete="off">
-            <div class="input-group">
-                <input type="text" id="regUser" placeholder=" " required>
-                <label>Username</label>
-            </div>
-
-            <div class="input-group password">
-                <input type="password" id="regPass" placeholder=" " required>
-                <label>Password</label>
-                <i class="fa-solid fa-eye toggle" data-target="regPass"></i>
-            </div>
-
-            <div class="input-group password">
-                <input type="password" id="regConfirm" placeholder=" " required>
-                <label>Confirm Password</label>
-                <i class="fa-solid fa-eye toggle" data-target="regConfirm"></i>
-            </div>
-
-            <button type="submit">REGISTER</button>
-
-            <p class="switch">
-                Sudah punya akun? <span onclick="showLogin()">Login</span>
-            </p>
-        </form>
+        <div class="lyrics-box">
+            <div class="read-line"></div>
+            <div class="lyrics" id="lyrics"></div>
+        </div>
     </div>
 
 </div>
