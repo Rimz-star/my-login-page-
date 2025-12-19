@@ -16,21 +16,19 @@
 
     <!-- LOGIN -->
     <div class="box active" id="loginBox">
-        <h2 class="glitch" data-text=>PRIVATE LOGIN</h2>
+        <h2 class="glitch">PRIVATE LOGIN</h2>
 
         <form id="loginForm" autocomplete="off">
 
             <div class="input-group">
                 <input type="text" id="loginUser" placeholder=" " required>
                 <label>Username</label>
-                <small class="error"></small>
             </div>
 
             <div class="input-group password">
                 <input type="password" id="loginPass" placeholder=" " required>
                 <label>Password</label>
-                <i class="fa-solid fa-eye toggle"></i>
-                <small class="error"></small>
+                <i class="fa-solid fa-eye toggle" data-target="loginPass"></i>
             </div>
 
             <button type="submit">ACCESS</button>
@@ -43,28 +41,25 @@
 
     <!-- REGISTER -->
     <div class="box" id="registerBox">
-        <h2 class="glitch" data-text=>CREATE AKUN</h2>
+        <h2 class="glitch">CREATE AKUN</h2>
 
         <form id="registerForm" autocomplete="off">
 
             <div class="input-group">
                 <input type="text" id="regUser" placeholder=" " required>
                 <label>Username</label>
-                <small class="error"></small>
             </div>
 
             <div class="input-group password">
                 <input type="password" id="regPass" placeholder=" " required>
                 <label>Password</label>
-                <i class="fa-solid fa-eye toggle"></i>
-                <small class="error"></small>
+                <i class="fa-solid fa-eye toggle" data-target="regPass"></i>
             </div>
 
             <div class="input-group password">
                 <input type="password" id="regConfirm" placeholder=" " required>
                 <label>Confirm Password</label>
-                <i class="fa-solid fa-eye toggle"></i>
-                <small class="error"></small>
+                <i class="fa-solid fa-eye toggle" data-target="regConfirm"></i>
             </div>
 
             <button type="submit">REGISTER</button>
