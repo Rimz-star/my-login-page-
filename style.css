@@ -1,13 +1,15 @@
-/* LAYOUT */
+/* ===== LAYOUT ===== */
 .layout {
     display: flex;
     gap: 30px;
     z-index: 1;
+    align-items: center; /* FIX: sejajar vertikal */
 }
 
-/* MUSIC CONTAINER */
+/* ===== MUSIC CONTAINER ===== */
 .music-container {
     width: 240px;
+    min-height: 200px; /* FIX: tinggi stabil */
     background: #0a0a0a;
     padding: 25px;
     border-radius: 14px;
@@ -15,9 +17,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
 }
 
-/* MUSIC CIRCLE */
+/* ===== MUSIC CIRCLE ===== */
 .music-circle {
     width: 80px;
     height: 80px;
@@ -29,13 +32,18 @@
     cursor: pointer;
     box-shadow: 0 0 25px #00ff88;
     margin-bottom: 20px;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.music-circle:hover {
+    transform: scale(1.05); /* FIX: feedback */
+    box-shadow: 0 0 35px #00ff88;
 }
 .music-circle i {
     color: #00ff88;
     font-size: 26px;
 }
 
-/* LYRICS */
+/* ===== LYRICS CONTAINER ===== */
 .lyrics-box {
     position: relative;
     width: 100%;
@@ -45,32 +53,58 @@
     padding-left: 10px;
 }
 
+/* WHITE READ LINE */
 .read-line {
     position: absolute;
-    top: 30px;
+    top: 50%;               /* FIX: tepat di tengah */
     left: 0;
     width: 100%;
     height: 2px;
     background: #fff;
+    transform: translateY(-50%);
     z-index: 2;
 }
 
+/* LYRICS HOLDER */
+.lyrics {
+    position: absolute;
+    bottom: 0;              /* FIX: anchor bawah */
+    width: 100%;
+}
+
+/* LYRIC LINE */
 .lyric-line {
     color: #00ffff;
     font-size: 13px;
     margin: 6px 0;
     animation: lyricUp 3s linear forwards;
+    opacity: 0;             /* FIX: no flicker */
 }
 
+/* ANIMATION */
 @keyframes lyricUp {
-    from { transform: translateY(50px); opacity: 1 }
-    to { transform: translateY(-70px); opacity: 0 }
+    0% {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-60px);
+        opacity: 0;
+    }
 }
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
     .layout {
         flex-direction: column;
         align-items: center;
+    }
+
+    .music-container {
+        width: 100%;
+        max-width: 360px;
     }
 }
