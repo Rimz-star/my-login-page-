@@ -6,13 +6,6 @@ if (localStorage.getItem("sessionUser")) {
 /* ELEMENTS */
 const loginBox = document.getElementById("loginBox");
 const registerBox = document.getElementById("registerBox");
-const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-const loginUser = document.getElementById("loginUser");
-const loginPass = document.getElementById("loginPass");
-const regUser = document.getElementById("regUser");
-const regPass = document.getElementById("regPass");
-const regConfirm = document.getElementById("regConfirm");
 
 /* SWITCH */
 function showRegister() {
@@ -24,77 +17,62 @@ function showLogin() {
     loginBox.classList.add("active");
 }
 
-/* TOGGLE PASSWORD - FIX */
+/* TOGGLE PASSWORD */
 document.querySelectorAll(".toggle").forEach(icon => {
-    icon.addEventListener("click", () => {
+    icon.onclick = () => {
         const input = document.getElementById(icon.dataset.target);
-        if (!input) return;
-
         input.type = input.type === "password" ? "text" : "password";
-        icon.classList.toggle("fa-eye");
         icon.classList.toggle("fa-eye-slash");
-    });
+    };
 });
 
-/* HASH */
-async function hashPassword(pass, salt) {
-    const data = new TextEncoder().encode(pass + salt);
-    const hash = await crypto.subtle.digest("SHA-256", data);
-    return [...new Uint8Array(hash)]
-        .map(b => b.toString(16).padStart(2, "0"))
-        .join("");
-}
+/* MUSIC PLAYER */
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+const musicIcon = document.getElementById("musicIcon");
+const lyricsBox = document.getElementById("lyrics");
 
-/* LOGIN */
-loginForm.onsubmit = async e => {
-    e.preventDefault();
-    const u = loginUser.value.trim();
-    const p = loginPass.value.trim();
+let playing = false;
+let lyricIndex = 0;
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(x => x.username === u);
+/* BEAT SYNC DATA */
+const lyricsData = [
+    { time: 0.5, text: "SYSTEM ONLINE" },
+    { time: 2.0, text: "SECURE CONNECTION" },
+    { time: 4.0, text: "AUTHORIZATION CHECK" },
+    { time: 6.0, text: "ACCESS GRANTED" },
+    { time: 9.0, text: "WELCOME USER" },
+    { time: 12.0, text: "CYBER AUTH ACTIVE" }
+];
 
-    if (!user) {
-        errorSound.play();
-        return alert("Login gagal");
+musicBtn.onclick = () => {
+    if (!playing) {
+        bgMusic.play();
+        musicIcon.classList.replace("fa-play", "fa-pause");
+    } else {
+        bgMusic.pause();
+        musicIcon.classList.replace("fa-pause", "fa-play");
     }
-
-    const h = await hashPassword(p, user.salt);
-    if (h !== user.password) {
-        errorSound.play();
-        return alert("Login gagal");
-    }
-
-    localStorage.setItem("sessionUser", u);
-    successSound.play();
-    location.href = "dashboard.html";
+    playing = !playing;
 };
 
-/* REGISTER */
-registerForm.onsubmit = async e => {
-    e.preventDefault();
-    const u = regUser.value.trim();
-    const p = regPass.value.trim();
-    const c = regConfirm.value.trim();
+bgMusic.addEventListener("timeupdate", () => {
+    if (lyricIndex >= lyricsData.length) return;
 
-    if (p.length < 6 || p !== c) {
-        errorSound.play();
-        return alert("Password error");
+    if (bgMusic.currentTime >= lyricsData[lyricIndex].time) {
+        const line = document.createElement("div");
+        line.className = "lyric-line";
+        line.textContent = lyricsData[lyricIndex].text;
+        lyricsBox.appendChild(line);
+
+        setTimeout(() => line.remove(), 3000);
+        lyricIndex++;
     }
+});
 
-    let users = JSON.parse(localStorage.getItem("users") || "[]");
-    if (users.find(x => x.username === u)) {
-        errorSound.play();
-        return alert("Username sudah ada");
-    }
-
-    const salt = crypto.randomUUID();
-    const hash = await hashPassword(p, salt);
-
-    users.push({ username: u, password: hash, salt });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    successSound.play();
-    alert("Register sukses");
-    showLogin();
+bgMusic.onended = () => {
+    playing = false;
+    lyricIndex = 0;
+    lyricsBox.innerHTML = "";
+    musicIcon.classList.replace("fa-pause", "fa-play");
 };
