@@ -15,23 +15,34 @@ const regPass = document.getElementById("regPass");
 const regConfirm = document.getElementById("regConfirm");
 
 /* SWITCH */
-function showRegister(){ loginBox.classList.remove("active"); registerBox.classList.add("active"); }
-function showLogin(){ registerBox.classList.remove("active"); loginBox.classList.add("active"); }
+function showRegister() {
+    loginBox.classList.remove("active");
+    registerBox.classList.add("active");
+}
+function showLogin() {
+    registerBox.classList.remove("active");
+    loginBox.classList.add("active");
+}
 
-/* TOGGLE PASSWORD */
-document.querySelectorAll(".toggle").forEach(icon=>{
-    icon.onclick = () => {
-        const input = icon.previousElementSibling;
+/* TOGGLE PASSWORD - FIX */
+document.querySelectorAll(".toggle").forEach(icon => {
+    icon.addEventListener("click", () => {
+        const input = document.getElementById(icon.dataset.target);
+        if (!input) return;
+
         input.type = input.type === "password" ? "text" : "password";
+        icon.classList.toggle("fa-eye");
         icon.classList.toggle("fa-eye-slash");
-    };
+    });
 });
 
 /* HASH */
-async function hashPassword(pass, salt){
+async function hashPassword(pass, salt) {
     const data = new TextEncoder().encode(pass + salt);
     const hash = await crypto.subtle.digest("SHA-256", data);
-    return [...new Uint8Array(hash)].map(b=>b.toString(16).padStart(2,"0")).join("");
+    return [...new Uint8Array(hash)]
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
 }
 
 /* LOGIN */
@@ -41,20 +52,21 @@ loginForm.onsubmit = async e => {
     const p = loginPass.value.trim();
 
     const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(x=>x.username===u);
-    if(!user) {
-        document.getElementById("errorSound").play();
+    const user = users.find(x => x.username === u);
+
+    if (!user) {
+        errorSound.play();
         return alert("Login gagal");
     }
 
     const h = await hashPassword(p, user.salt);
-    if(h !== user.password) {
-        document.getElementById("errorSound").play();
+    if (h !== user.password) {
+        errorSound.play();
         return alert("Login gagal");
     }
 
     localStorage.setItem("sessionUser", u);
-    document.getElementById("successSound").play();
+    successSound.play();
     location.href = "dashboard.html";
 };
 
@@ -65,24 +77,24 @@ registerForm.onsubmit = async e => {
     const p = regPass.value.trim();
     const c = regConfirm.value.trim();
 
-    if(p.length < 6 || p !== c) {
-        document.getElementById("errorSound").play();
+    if (p.length < 6 || p !== c) {
+        errorSound.play();
         return alert("Password error");
     }
 
     let users = JSON.parse(localStorage.getItem("users") || "[]");
-    if(users.find(x=>x.username===u)) {
-        document.getElementById("errorSound").play();
+    if (users.find(x => x.username === u)) {
+        errorSound.play();
         return alert("Username sudah ada");
     }
 
     const salt = crypto.randomUUID();
     const hash = await hashPassword(p, salt);
 
-    users.push({ username:u, password:hash, salt });
+    users.push({ username: u, password: hash, salt });
     localStorage.setItem("users", JSON.stringify(users));
 
-    document.getElementById("successSound").play();
+    successSound.play();
     alert("Register sukses");
     showLogin();
 };
