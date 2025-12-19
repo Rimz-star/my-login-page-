@@ -3,11 +3,10 @@ if (localStorage.getItem("sessionUser")) {
     location.href = "dashboard.html";
 }
 
-/* ELEMENTS */
+/* SWITCH */
 const loginBox = document.getElementById("loginBox");
 const registerBox = document.getElementById("registerBox");
 
-/* SWITCH */
 function showRegister() {
     loginBox.classList.remove("active");
     registerBox.classList.add("active");
@@ -35,7 +34,6 @@ const lyricsBox = document.getElementById("lyrics");
 let playing = false;
 let lyricIndex = 0;
 
-/* BEAT SYNC DATA */
 const lyricsData = [
     { time: 0.5, text: "SYSTEM ONLINE" },
     { time: 2.0, text: "SECURE CONNECTION" },
