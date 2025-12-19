@@ -1,232 +1,104 @@
 /* RESET */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { min-height: 100vh; background: #000; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
 
 /* SCANLINE */
-.scanline {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(rgba(0,255,136,.4), rgba(0,255,136,0));
-    animation: scan 2s linear infinite;
-    pointer-events: none;
-}
+.scanline { position: absolute; width: 100%; height: 2px; background: linear-gradient(rgba(0,255,136,.4), rgba(0,255,136,0)); animation: scan 2s linear infinite; pointer-events: none; }
 @keyframes scan { 0% { top: 0 } 100% { top: 100% } }
 
 /* NOISE */
-.noise {
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        0deg,
-        rgba(0,255,136,.02) 0,
-        rgba(0,255,136,.02) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    animation: noise .2s steps(2) infinite;
-    pointer-events: none;
-}
+.noise { position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, rgba(0,255,136,.02) 0, rgba(0,255,136,.02) 1px, transparent 1px, transparent 2px); animation: noise .2s steps(2) infinite; pointer-events: none; }
 @keyframes noise { to { background-position: 100% 100% } }
 
 /* LAYOUT */
-.layout {
-    display: flex;
-    gap: 30px;
-    z-index: 1;
-}
+.layout { display: flex; gap: 30px; z-index: 1; }
 
-/* CONTAINER */
-.container {
-    width: 360px;
-    background: #0a0a0a;
-    padding: 40px;
-    border-radius: 14px;
-    box-shadow: 0 0 20px #00ff88, inset 0 0 40px #00ff88;
-    animation: neon 1.5s infinite alternate;
-}
-@keyframes neon {
-    to { box-shadow: 0 0 40px #00ff88, inset 0 0 60px #00ff88 }
-}
+/* CONTAINER LOGIN */
+.container { width: 360px; background: #0a0a0a; padding: 40px; border-radius: 14px; box-shadow: 0 0 20px #00ff88, inset 0 0 40px #00ff88; animation: neon 1.5s infinite alternate; z-index: 1; }
+@keyframes neon { to { box-shadow: 0 0 40px #00ff88, inset 0 0 60px #00ff88 } }
 
 /* BOX */
 .box { display: none }
 .box.active { display: block }
 
 /* TITLE */
-h2 {
-    text-align: center;
-    color: #00ff88;
-    margin-bottom: 30px;
-    letter-spacing: 3px;
-    position: relative;
-}
-
-/* GLITCH */
-.glitch::before,
-.glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
+h2 { text-align: center; color: #00ff88; margin-bottom: 30px; letter-spacing: 3px; position: relative; }
+.glitch::before, .glitch::after { content: attr(data-text); position: absolute; left: 0; top: 0; }
 .glitch::before { color: #00ffff; text-shadow: -2px 0 #00ffff; }
 .glitch::after { color: #00ff88; text-shadow: 2px 0 #00ff88; }
 
 /* INPUT */
-.input-group {
-    position: relative;
-    margin-bottom: 30px;
-}
+.input-group { position: relative; margin-bottom: 30px; }
+.input-group input { width: 100%; padding: 12px 38px 12px 10px; background: transparent; border: 1px solid #00ff88; color: #00ff88; border-radius: 6px; }
+.input-group label { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: #00ff88; transition: .3s; }
+.input-group input:focus + label, .input-group input:not(:placeholder-shown) + label { top: -8px; font-size: 12px; }
 
-.input-group input {
-    width: 100%;
-    padding: 12px 38px 12px 10px;
-    background: transparent;
-    border: 1px solid #00ff88;
-    color: #00ff88;
-    border-radius: 6px;
-}
-
-.input-group label {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: #00ff88;
-    transition: .3s;
-}
-
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label {
-    top: -8px;
-    font-size: 12px;
-}
-
-/* PASSWORD TOGGLE ICON */
-.password i {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #00ffff;
-}
+/* PASSWORD TOGGLE */
+.password i { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #00ffff; }
 
 /* BUTTON */
-button {
-    width: 100%;
-    padding: 12px;
-    background: #00ff88;
-    color: #000;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.2s;
-}
-button:hover {
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff88;
-}
+button { width: 100%; padding: 12px; background: #00ff88; color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+button:hover { box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff88; }
 
-/* SWITCH TEXT */
-.switch {
-    color: #00ff88;
-    text-align: center;
-    margin-top: 15px;
-    font-size: 14px;
-}
-.switch span {
-    color: #00ffff;
-    cursor: pointer;
-    font-weight: bold;
-}
+/* SWITCH */
+.switch { color: #00ff88; text-align: center; margin-top: 15px; font-size: 14px; }
+.switch span { color: #00ffff; cursor: pointer; font-weight: bold; }
 
-/* MUSIC CONTAINER */
+/* ERROR */
+.error { color: #00ffff; font-size: 12px; }
+.input-error input { border-color: #00ffff; }
+
+/* MUSIC CONTAINER (KECIL PERSEGI PANJANG) */
 .music-container {
-    width: 240px;
+    width: 180px;
+    height: 120px;
     background: #0a0a0a;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 0 20px #00ffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00ffff;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     position: relative;
 }
 
 /* MUSIC CIRCLE */
 .music-circle {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 25px #00ff88;
-    margin-bottom: 20px;
-    transition: 0.3s;
+    box-shadow: 0 0 15px #00ff88;
+    margin-bottom: 5px;
 }
-.music-circle:hover {
-    box-shadow: 0 0 35px #00ff88, 0 0 10px #00ffff;
-}
-.music-circle i { color: #00ff88; font-size: 26px; }
+.music-circle i { color: #00ff88; font-size: 20px; }
 
-/* LYRICS */
+/* LYRICS BOX */
 .lyrics-box {
     position: relative;
     width: 100%;
-    height: 80px;
+    height: 50px;
     overflow: hidden;
     border-left: 2px solid #fff;
-    padding-left: 10px;
+    padding-left: 5px;
     background: rgba(0,0,0,0.2);
 }
-
 .read-line {
     position: absolute;
-    top: 30px;
+    top: 20px;
     left: 0;
     width: 100%;
     height: 2px;
     background: #fff;
     z-index: 5;
 }
-
 .lyric-line {
     color: #00ffff;
-    font-size: 13px;
-    margin: 6px 0;
-    animation: lyricUp 3s linear forwards;
-    position: relative;
-    z-index: 1;
-}
-
-@keyframes lyricUp {
-    0% { transform: translateY(50px); opacity: 1; }
-    80% { opacity: 1; }
-    100% { transform: translateY(-70px); opacity: 0; }
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-    .layout { flex-direction: column; align-items: center; }
-    .music-container { margin-top: 20px; }
-}
+    font-size: 11px;
+    margin: 4px 0;
+    animation: lyricUp 3s
